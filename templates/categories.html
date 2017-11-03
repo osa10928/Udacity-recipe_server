@@ -31,5 +31,19 @@
         </ul>
       </div>
     </nav>
+    <main class="container">
+      <section id="category-container" class="data-container d-flex flex-column mx-auto">
+        <header>
+          <h3 class="text-center">Categories</h3>
+        </header>
+        {% for category in categories %}
+        <article class="data-article d-flex align-items-center">
+          <p class="data-article-name">{{ category.name }}</p>
+          <a class="data-article-btn btn btn-sm edit-btn" href="#">Edit</a>
+          <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="#">Delete</a>
+        </article>
+        {% endfor %}
+      </section>
+    </main>
   </body>
 </html>

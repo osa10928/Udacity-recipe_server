@@ -19,9 +19,10 @@ main {
 
 .data-container {
   width: 45%;
+  min-width: 230px;
 }
 
-section header h3 {
+section header {
   background: #5DADEC;
   font-family: 'Open Sans', 'Cantarell', sans-serif;
   font-weight: 900;
@@ -34,6 +35,10 @@ section header h3 {
   border: solid thin rgba(107, 63, 160, 1);
 }
 
+section header a {
+  font-size: 0.8rem;
+}
+
 .data-article {
   padding: 3%;
   font-family: 'Roboto', sans-serif;
@@ -43,11 +48,6 @@ section header h3 {
   border-right: solid thin rgba(107, 63, 160, 1);
   border-left: solid thin rgba(107, 63, 160, 1);
   border-bottom: solid thin rgba(107, 63, 160, 1);
-}
-
-.data-article p {
-  margin: 0;
-  cursor: pointer;
 }
 
 .data-article-name {
@@ -63,7 +63,23 @@ section header h3 {
   color: white;
 }
 
+
 /* End Generic Rules */
+
+/* Create/Edit/Delete Pages */
+
+form {
+  background: white;
+  padding: 3%;
+  border: solid thin rgba(107, 63, 160, 1);
+  border-top: none;
+}
+
+.cancel-btn {
+  width: 75px;
+}
+
+/* End Create/Edit/Delete Pages */
 
 /* Nav */
 

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Cantarell|Montserrat|Open+Sans|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="static/main.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
     <nav class="navbar fixed-top bg-faded">
       <div id="logo-container" class="d-flex">
         <a class="headerlogo mr-4 mt-2" href="index.html">
-            <img id="headerlogo" class="img-fluid" src="static/images/lasagna.jpg" />
+            <img id="headerlogo" class="img-fluid" src="{{ url_for('static', filename='images/lasagna.jpg') }}" />
         </a>
         <div id="headername" class="d-flex flex-nowrap align-items-center">Recipes!</div>
       </div>
@@ -35,12 +35,15 @@
       <section id="category-container" class="data-container d-flex flex-column mx-auto">
         <header>
           <h3 class="text-center">Categories</h3>
+          <div class="text-center">
+            <a href="{{ url_for('newCategory') }}">Create a new Category</a>
+          </div>
         </header>
         {% for category in categories %}
         <article class="data-article d-flex align-items-center">
-          <p class="data-article-name">{{ category.name }}</p>
-          <a class="data-article-btn btn btn-sm edit-btn" href="#">Edit</a>
-          <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="#">Delete</a>
+          <a class="data-article-name" href="{{ url_for('showRecipes', category_id=category.id)}}">{{ category.name }}</a>
+          <a class="data-article-btn btn btn-sm edit-btn" href="{{ url_for('editCategory', category_id=category.id) }}">Edit</a>
+          <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="{{ url_for('deleteCategory', category_id=category.id) }}">Delete</a>
         </article>
         {% endfor %}
       </section>

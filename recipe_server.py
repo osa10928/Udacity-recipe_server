@@ -18,6 +18,42 @@ def showCategories():
     categories = session.query(Category).all()
     return render_template('categories.html', categories=categories)
 
+@app.route('/categories/new/', methods=['GET', 'POST'])
+def newCategory():
+    if request.method == 'POST':
+        newCategory = Category(name=request.form['name'])
+        session.add(newCategory)
+        session.commit()
+        return redirect(url_for('showCategories'))
+    else:
+        return render_template('newCategory.html')
+
+@app.route('/categories/<int:category_id>/edit/', methods=['GET', 'POST'])
+def editCategory(category_id):
+    editedCategory = session.query(Category).filter_by(id=category_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedCategory.name = request.form['name']
+            return redirect(url_for('showCategories'))
+    else:
+        return render_template('editCategory.html', category=editedCategory)
+
+@app.route('/categories/<int:category_id>/delete/', methods=['GET', 'POST'])
+def deleteCategory(category_id):
+    categoryToDelete = session.query(Category).filter_by(id=category_id).one()
+    if request.method == 'POST':
+        session.delete(categoryToDelete)
+        session.commit()
+        return redirect(url_for('showCategories'))
+    else:
+        return render_template('deleteCategory.html', category=categoryToDelete)
+
+
+@app.route('/categories/<int:category_id>/recipes/')
+def showRecipes(category_id):
+    recipes = session.query(Recipe).filter_by(category_id=category_id).all()
+    return render_template('recipes.html')
+
 
 # Prevent Caching during development
 @app.after_request

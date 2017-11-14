@@ -51,9 +51,76 @@ def deleteCategory(category_id):
 
 @app.route('/categories/<int:category_id>/recipes/')
 def showRecipes(category_id):
+    categories = session.query(Category).all()
+    category = session.query(Category).filter_by(id=category_id).one()
     recipes = session.query(Recipe).filter_by(category_id=category_id).all()
-    return render_template('recipes.html')
+    return render_template('recipes.html', categories=categories, recipes=recipes, category=category)
 
+@app.route('/categories/<int:category_id>/recipes/new', methods=['GET', 'POST'])
+def newRecipe(category_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    if request.method == 'POST':
+        newRecipe = Recipe(category_id=category_id, name=request.form['name'])
+        session.add(newRecipe)
+        session.commit()
+        return redirect(url_for('showIngredients', recipe_id=newRecipe.id, category_id=category_id))
+    else:
+        return render_template('newRecipe.html', category=category)
+
+@app.route('/categories/<int:category_id>/recipes/<int:recipe_id>/edit/', methods=['GET', 'POST'])
+def editRecipe(category_id, recipe_id):
+    editedRecipe = session.query(Recipe).filter_by(id=recipe_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedRecipe.name = request.form['name']
+            return redirect(url_for('showRecipes', category_id=category_id))
+    else:
+        return render_template('editRecipe.html', recipe=editedRecipe)
+
+@app.route('/categories/<int:category_id>/recipes/<int:recipe_id>/delete/', methods=['GET', 'POST'])
+def deleteRecipe(category_id, recipe_id):
+    recipeToDelete = session.query(Recipe).filter_by(id=recipe_id).one()
+    if request.method == 'POST':
+        session.delete(recipeToDelete)
+        session.commit()
+        return redirect(url_for('showRecipes', category_id=category_id))
+    else:
+        return render_template('deleteRecipe.html', recipe=recipeToDelete)
+
+
+
+@app.route('/categories/<int:category_id>/recipes/<int:recipe_id>/ingredients', methods=['GET'])
+def showIngredients(category_id, recipe_id):
+    category = session.query(Category).filter_by(id=category_id).one()
+    recipes = session.query(Recipe).filter_by(category_id=category_id).all()
+    recipe = session.query(Recipe).filter_by(id=recipe_id).one()
+    ingredients = session.query(Ingredient).filter_by(recipe_id=recipe_id).all()
+    return render_template('ingredients.html', category=category, recipes=recipes, recipe=recipe, ingredients=ingredients)
+
+@app.route('/categories/<int:category_id>/recipes/<int:recipe_id>/ingredients/new', methods=['POST'])
+def newIngredient(category_id, recipe_id):
+    ingredients = session.query(Ingredient).filter_by(recipe_id=recipe_id).all()
+    if request.method == 'POST':
+        newIngredient = Ingredient(name=request.form['name'], recipe_id=recipe_id)
+        session.add(newIngredient)
+        session.commit()
+    return redirect(url_for('showIngredients', category_id=category_id, recipe_id=recipe_id))
+
+@app.route('/categories/<int:category_id>/recipes/<int:recipe_id>/ingredients/edit/<int:ingredient_id>', methods=['POST'])
+def editIngredient(category_id, recipe_id, ingredient_id):
+    editedIngredient = session.query(Ingredient).filter_by(id=ingredient_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedIngredient.name = request.form['name']
+    return redirect(url_for('showIngredients', category_id=category_id, recipe_id=recipe_id))
+
+@app.route('/categories/<int:category_id>/recipes/<int:recipe_id>/ingredients/delete/<int:ingredient_id>', methods=['POST'])
+def deleteIngredient(category_id, recipe_id, ingredient_id):
+    ingredientToDelete = session.query(Ingredient).filter_by(id=ingredient_id).one()
+    if request.method == 'POST':
+        session.delete(ingredientToDelete)
+        session.commit()
+    return redirect(url_for('showIngredients', category_id=category_id, recipe_id=recipe_id))
 
 # Prevent Caching during development
 @app.after_request

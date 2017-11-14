@@ -14,7 +14,7 @@
   <body>
     <nav class="navbar fixed-top bg-faded">
       <div id="logo-container" class="d-flex">
-        <a class="headerlogo mr-4 mt-2" href="index.html">
+        <a class="headerlogo mr-4 mt-2" href="{{ url_for('showCategories') }}">
             <img id="headerlogo" class="img-fluid" src="{{ url_for('static', filename='images/lasagna.jpg') }}" />
         </a>
         <div id="headername" class="d-flex flex-nowrap align-items-center">Recipes!</div>
@@ -31,5 +31,37 @@
         </ul>
       </div>
     </nav>
+    <main class="container d-flex">
+      <section id="category-container" class="data-container aside-container d-flex flex-column mx-auto">
+        <header>
+          <h3 class="text-center">Categories</h3>
+          <div class="text-center">
+            <a href="{{ url_for('newCategory') }}">Create a new Category</a>
+          </div>
+        </header>
+        {% for category in categories %}
+        <article class="data-article d-flex align-items-center">
+          <a class="data-article-name" href="{{ url_for('showRecipes', category_id=category.id)}}">{{ category.name }}</a>
+          <a class="data-article-btn btn btn-sm edit-btn" href="{{ url_for('editCategory', category_id=category.id) }}">Edit</a>
+          <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="{{ url_for('deleteCategory', category_id=category.id) }}">Delete</a>
+        </article>
+        {% endfor %}
+      </section>
+      <section id="recipe-container" class="data-container main-container d-flex flex-column mx-auto">
+        <header>
+          <h3 class="text-center">{{ category.name }} Recipes</h3>
+          <div class="text-center">
+            <a href="{{ url_for('newRecipe', category_id=category.id) }}">Create a new Recipe</a>
+          </div>
+        </header>
+        {% for recipe in recipes %}
+        <article class="data-article d-flex align-items-center">
+          <a class="data-article-name" href="{{ url_for('showIngredients', category_id=recipe.category_id, recipe_id=recipe.id)}}">{{ recipe.name }}</a>
+          <a class="data-article-btn btn btn-sm edit-btn" href="{{ url_for('editRecipe', category_id=recipe.category_id, recipe_id=recipe.id) }}">Edit</a>
+          <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="{{  url_for('deleteRecipe', category_id=recipe.category_id, recipe_id=recipe.id) }}">Delete</a>
+        </article>
+        {% endfor %}
+      </section>
+    </main>
   </body>
 </html>

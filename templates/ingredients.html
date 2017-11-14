@@ -10,11 +10,12 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
   </head>
   <body>
     <nav class="navbar fixed-top bg-faded">
       <div id="logo-container" class="d-flex">
-        <a class="headerlogo mr-4 mt-2" href="index.html">
+        <a class="headerlogo mr-4 mt-2" href="{{ url_for('showCategories') }}">
             <img id="headerlogo" class="img-fluid" src="{{ url_for('static', filename='images/lasagna.jpg') }}" />
         </a>
         <div id="headername" class="d-flex flex-nowrap align-items-center">Recipes!</div>
@@ -31,5 +32,53 @@
         </ul>
       </div>
     </nav>
+    <main class="container d-flex">
+      <section id="recipe-container" class="data-container aside-container d-flex flex-column mx-auto">
+        <header>
+          <h3 class="text-center">{{ category.name }} Recipes</h3>
+          <div class="text-center">
+            <a href="{{ url_for('newRecipe', category_id=category.id) }}">Create a new Recipe</a>
+          </div>
+        </header>
+        {% for recipe in recipes %}
+        <article class="data-article d-flex align-items-center">
+          <a class="data-article-name" href="{{ url_for('showIngredients', category_id=recipe.category_id, recipe_id=recipe.id)}}">{{ recipe.name }}</a>
+          <a class="data-article-btn btn btn-sm edit-btn" href="{{ url_for('editRecipe', category_id=recipe.category_id, recipe_id=recipe.id) }}">Edit</a>
+          <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="{{  url_for('deleteRecipe', category_id=recipe.category_id, recipe_id=recipe.id) }}">Delete</a>
+        </article>
+        {% endfor %}
+      </section>
+      <section id="recipe-container" class="data-container main-container d-flex flex-column mx-auto">
+        <header>
+          <h3 class="text-center">{{ recipe.name }} Ingredients</h3>
+        </header>
+        {% for ingredient in ingredients %}
+        <article class="data-article ingredient-article d-flex align-items-center justify-content-center">
+          <div class="ingredients-details d-flex align-items-center" id="ingredient{{ ingredient.id }}">
+            <a class="data-article-name">{{ ingredient.name }}</a>
+            <a class="data-article-btn btn btn-sm edit-btn" id="ingredient{{ ingredient.id }}-btn" type="button" >Edit</a>
+            <a class="data-article-btn btn btn-danger btn-sm delete-btn delete-ingredient-btn" id="ingredient{{ ingredient.id }}-deletebtn" type="button">Delete</a>
+            <form class="hidden-delete-form" action="{{  url_for('deleteIngredient', category_id=recipe.category_id, recipe_id=recipe.id, ingredient_id=ingredient.id) }}" method="POST">
+              <input class="real-delete-ingredient-btn" id="ingredient{{ ingredient.id }}-realdeletebtn" type="submit" value="delete"/>
+            </form>
+          </div>
+          <form class="edit-ingredient-form d-flex" id="ingredient{{ ingredient.id }}-form" action="{{ url_for('editIngredient', category_id=recipe.category_id, recipe_id=recipe.id, ingredient_id=ingredient.id) }}" method="POST">
+            <label class="d-inline-block mr-2" for="name-input">Name: </label>
+            <input class="d-inline-block" id="name-input" type="text" name="name" placeholder="{{ ingredient.name }}" required/>
+            <input class="ml-auto d-inline-block" type="submit" value="Edit" />
+            <input class="ml-auto d-inline-block cancel-ingredient-btn" id="ingredient{{ ingredient.id }}-cancelbtn" type="button" value="Cancel" />
+          </form>
+        </article>
+        {% endfor %}
+        <article class="data-article d-flex align-items-center justify-content-center">
+          <a class="data-article-btn btn btn-lg btn-success add-ingredient-btn" type="button">Add New Ingredient</a>
+          <form class="add-ingredient-form d-flex" action="{{ url_for('newIngredient', category_id=recipe.category_id, recipe_id=recipe.id) }}" method="POST">
+            <label class="d-inline-block mr-2" for="name-input">Name: </label>
+            <input class="d-inline-block" id="name-input" type="text" name="name" required/>
+            <input class="ml-auto d-inline-block" type="submit" value="Create" />
+          </form>
+        </article>
+      </section>
+    </main>
   </body>
 </html>

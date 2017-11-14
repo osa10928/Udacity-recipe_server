@@ -14,7 +14,7 @@
   <body>
     <nav class="navbar fixed-top bg-faded">
       <div id="logo-container" class="d-flex">
-        <a class="headerlogo mr-4 mt-2" href="index.html">
+        <a class="headerlogo mr-4 mt-2" href="{{ url_for('showCategories') }}">
             <img id="headerlogo" class="img-fluid" src="{{ url_for('static', filename='images/lasagna.jpg') }}" />
         </a>
         <div id="headername" class="d-flex flex-nowrap align-items-center">Recipes!</div>
@@ -32,7 +32,7 @@
       </div>
     </nav>
     <main class="container">
-      <section id="category-container" class="data-container d-flex flex-column mx-auto">
+      <section id="category-container" class="data-container d-flex flex-column mx-auto w-50">
         <header>
           <h3 class="text-center">Categories</h3>
           <div class="text-center">

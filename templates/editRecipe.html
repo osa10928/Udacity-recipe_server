@@ -14,7 +14,7 @@
   <body>
     <nav class="navbar fixed-top bg-faded">
       <div id="logo-container" class="d-flex">
-        <a class="headerlogo mr-4 mt-2" href="index.html">
+        <a class="headerlogo mr-4 mt-2" href="{{ url_for('showCategories') }}">
             <img id="headerlogo" class="img-fluid" src="{{ url_for('static', filename='images/lasagna.jpg') }}" />
         </a>
         <div id="headername" class="d-flex flex-nowrap align-items-center">Recipes!</div>
@@ -31,5 +31,18 @@
         </ul>
       </div>
     </nav>
+    <main class="container">
+      <section id="form-section" class="data-container d-flex flex-column mx-auto w-75">
+        <header>
+          <h3 class="text-center">Edit {{ recipe.name }} Recipe</h3>
+        </header>
+        <form action="{{ url_for('editRecipe', category_id=recipe.category_id, recipe_id=recipe.id) }}" method="POST">
+          <label class="d-inline-block" for="name-input">New Name</label>
+          <input class="d-inline-block" id="name-input" type="text" name="name" placeholder="{{ recipe.name }}" required/>
+          <input class="ml-auto" type="submit" value="Edit" />
+          <a class="cancel-btn btn btn-sm edit-btn d-block mt-5" href="{{ url_for('showRecipes', category_id=recipe.category_id) }}">Cancel</a>
+        </form>
+      </section>
+    </main>
   </body>
 </html>

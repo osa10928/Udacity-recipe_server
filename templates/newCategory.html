@@ -19,6 +19,14 @@
         </a>
         <div id="headername" class="d-flex flex-nowrap align-items-center">Recipes!</div>
       </div>
+      <div id=login-info class="d-flex align-items-center justify-content-around">
+      {% if email != None %}
+        <p id="login-welcome" class="mb-0 pr-2">Welcome {{ email }}</p>
+        <a id="logout-link" class="pl-2" href="{{ url_for('gdisconnect') }}">Logout</a>
+      {% else %}
+        <a id="login-link" href="{{ url_for('showLogin') }}">Login</a>
+      {% endif %}
+      </div>
       <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

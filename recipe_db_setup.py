@@ -30,6 +30,8 @@ class Recipe(Base):
     name = Column(String(250), nullable=False)
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
 
 
 class Ingredient(Base):

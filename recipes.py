@@ -23,13 +23,18 @@ user1 = User(email="osa10928@gmail.com")
 session.add(user1)
 session.commit()
 
+# Create an example second User
+user2 = User(email="example123@example.com")
+session.add(user1)
+session.commit()
+
 #Create 1st category with user1 as reference
 category1 = Category(name="BBQ", user=user1)
 session.add(category1)
 session.commit()
 
 #Create 1st Recipe with category1 as reference
-recipe1 = Recipe(name="Barbequed Ribs", category=category1)
+recipe1 = Recipe(name="Barbequed Ribs", category=category1, user=user1)
 session.add(recipe1)
 session.commit()
 
@@ -104,7 +109,7 @@ session.commit()
 
 
 # create second recipe for category1
-recipe2 = Recipe(name="Southern BBQ Chicken", category=category1)
+recipe2 = Recipe(name="Southern BBQ Chicken", category=category1, user=user1)
 session.add(recipe2)
 session.commit()
 
@@ -117,7 +122,7 @@ ingredient2 = Ingredient(name="2 large cloves garlic, chopped", recipe=recipe2)
 session.add(ingredient2)
 session.commit()
 
-ingredient3 = Ingredient(name="2 tablesppons salt", recipe=recipe2)
+ingredient3 = Ingredient(name="2 tablespons salt", recipe=recipe2)
 session.add(ingredient3)
 session.commit()
 
@@ -150,11 +155,11 @@ session.add(ingredient10)
 session.commit()
 
 # Now Create a second category, its 2 recipes with their ingredients
-category2 = Category(name="Vegetarian", user=user1)
+category2 = Category(name="Vegetarian", user=user2)
 session.add(category2)
 session.commit()
 
-recipe3 = Recipe(name="Vegetarian Korma", category=category2)
+recipe3 = Recipe(name="Vegetarian Korma", category=category2, user=user1)
 session.add(recipe3)
 session.commit()
 
@@ -199,7 +204,7 @@ session.add(ingredient10)
 session.commit()
 
 
-recipe4 = Recipe(name="Spinach Quiche", category=category2)
+recipe4 = Recipe(name="Spinach Quiche", category=category2, user=user2)
 session.add(recipe4)
 session.commit()
 
@@ -233,7 +238,7 @@ category3 = Category(name="Dessert", user=user1)
 session.add(category3)
 session.commit()
 
-recipe5 = Recipe(name="Chef John's Pumpkin Pie", category=category3)
+recipe5 = Recipe(name="Chef John's Pumpkin Pie", category=category3, user=user1)
 session.add(recipe5)
 session.commit()
 
@@ -278,7 +283,7 @@ session.add(ingredient10)
 session.commit()
 
 
-recipe6 = Recipe(name="Maple Pecan Shortbread Squares", category=category3)
+recipe6 = Recipe(name="Maple Pecan Shortbread Squares", category=category3, user=user2)
 session.add(recipe6)
 session.commit()
 

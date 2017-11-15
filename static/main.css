@@ -15,6 +15,13 @@ a:hover {
 
 main {
   padding-top: 66px;
+  flex-wrap: wrap;
+}
+
+.flash-message {
+  background: white;
+  margin-bottom: 20px;
+  min-width: 100%;
 }
 
 .data-container {
@@ -23,10 +30,12 @@ main {
 
 .aside-container {
   width: 30%;
+  margin-bottom: 10%;
 }
 
 .main-container {
   width: 60%;
+  margin-bottom: 10%;
 }
 
 section header {

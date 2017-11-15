@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Recipes | Categories</title>
+    <title>Recipes | Recipes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Cantarell|Montserrat|Open+Sans|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -21,7 +21,7 @@
       </div>
       <div id=login-info class="d-flex align-items-center justify-content-around">
       {% if email != None %}
-        <p id="login-welcome" class="mb-0 pr-2">Welcome {{ email }}</p>
+        <p id="login-welcome" class="mb-0 pr-2">Welcome {{ username }}</p>
         <a id="logout-link" class="pl-2" href="{{ url_for('gdisconnect') }}">Logout</a>
       {% else %}
         <a id="login-link" href="{{ url_for('showLogin') }}">Login</a>
@@ -59,8 +59,10 @@
         {% for category in categories %}
         <article class="data-article d-flex align-items-center">
           <a class="data-article-name" href="{{ url_for('showRecipes', category_id=category.id)}}">{{ category.name }}</a>
+          {% if email != None and user_id == category.user_id %}
           <a class="data-article-btn btn btn-sm edit-btn" href="{{ url_for('editCategory', category_id=category.id) }}">Edit</a>
           <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="{{ url_for('deleteCategory', category_id=category.id) }}">Delete</a>
+          {% endif %}
         </article>
         {% endfor %}
       </section>
@@ -74,8 +76,10 @@
         {% for recipe in recipes %}
         <article class="data-article d-flex align-items-center">
           <a class="data-article-name" href="{{ url_for('showIngredients', category_id=recipe.category_id, recipe_id=recipe.id)}}">{{ recipe.name }}</a>
+          {% if email != None and user_id == recipe.user_id %}
           <a class="data-article-btn btn btn-sm edit-btn" href="{{ url_for('editRecipe', category_id=recipe.category_id, recipe_id=recipe.id) }}">Edit</a>
           <a class="data-article-btn btn btn-danger btn-sm delete-btn" href="{{  url_for('deleteRecipe', category_id=recipe.category_id, recipe_id=recipe.id) }}">Delete</a>
+          {% endif %}
         </article>
         {% endfor %}
       </section>

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Recipes | Categories</title>
+    <title>Recipes | Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Cantarell|Montserrat|Open+Sans|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -23,7 +23,7 @@
       </div>
       <div id=login-info class="d-flex align-items-center justify-content-around">
       {% if email != None %}
-        <p id="login-welcome" class="mb-0 pr-2">Welcome {{ email }}</p>
+        <p id="login-welcome" class="mb-0 pr-2">Welcome {{ username }}</p>
         <a id="logout-link" class="pl-2" href="{{ url_for('gdisconnect') }}">Logout</a>
       {% else %}
         <a id="login-link" href="{{ url_for('showLogin') }}">Login</a>

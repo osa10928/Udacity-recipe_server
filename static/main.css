@@ -193,3 +193,12 @@ nav a:hover {
 }
 
 /* End Ingredients.html */
+
+/* Login.html */
+
+#signinButton {
+  padding: 5%;
+  background: white;
+}
+
+/* End Login.html */

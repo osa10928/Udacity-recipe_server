@@ -18,7 +18,7 @@ DBSession = sessionmaker(bind=engine)
 # session.rollback()
 session = DBSession()
 
-#Create Master User (Me)
+# Create Master User (Me)
 user1 = User(email="osa10928@gmail.com")
 session.add(user1)
 session.commit()
@@ -28,17 +28,17 @@ user2 = User(email="example123@example.com")
 session.add(user1)
 session.commit()
 
-#Create 1st category with user1 as reference
+# Create 1st category with user1 as reference
 category1 = Category(name="BBQ", user=user1)
 session.add(category1)
 session.commit()
 
-#Create 1st Recipe with category1 as reference
+# Create 1st Recipe with category1 as reference
 recipe1 = Recipe(name="Barbequed Ribs", category=category1, user=user1)
 session.add(recipe1)
 session.commit()
 
-#Create ingredients for recipe1
+# Create ingredients for recipe1
 ingredient1 = Ingredient(name="4 pounds baby back pork ribs", recipe=recipe1)
 session.add(ingredient1)
 session.commit()
@@ -59,7 +59,8 @@ ingredient5 = Ingredient(name="2 teaspoons salt", recipe=recipe1)
 session.add(ingredient5)
 session.commit()
 
-ingredient6 = Ingredient(name="2 teaspoons ground black pepper", recipe=recipe1)
+ingredient6 = Ingredient(
+    name="2 teaspoons ground black pepper", recipe=recipe1)
 session.add(ingredient6)
 session.commit()
 
@@ -146,11 +147,13 @@ ingredient8 = Ingredient(name="3/4 cup ketchup", recipe=recipe2)
 session.add(ingredient8)
 session.commit()
 
-ingredient9 = Ingredient(name="2 tablespoons white wine vinegar", recipe=recipe2)
+ingredient9 = Ingredient(
+    name="2 tablespoons white wine vinegar", recipe=recipe2)
 session.add(ingredient9)
 session.commit()
 
-ingredient10 = Ingredient(name="2 tablespoons Worcestershire sauce", recipe=recipe2)
+ingredient10 = Ingredient(
+    name="2 tablespoons Worcestershire sauce", recipe=recipe2)
 session.add(ingredient10)
 session.commit()
 
@@ -163,7 +166,8 @@ recipe3 = Recipe(name="Vegetarian Korma", category=category2, user=user1)
 session.add(recipe3)
 session.commit()
 
-ingredient1 = Ingredient(name="1 1/2 tablespoons vegetable oil", recipe=recipe3)
+ingredient1 = Ingredient(
+    name="1 1/2 tablespoons vegetable oil", recipe=recipe3)
 session.add(ingredient1)
 session.commit()
 
@@ -171,7 +175,8 @@ ingredient2 = Ingredient(name="1 small onion, diced", recipe=recipe3)
 session.add(ingredient2)
 session.commit()
 
-ingredient3 = Ingredient(name="1 teaspoon minced fresh ginger root", recipe=recipe3)
+ingredient3 = Ingredient(
+    name="1 teaspoon minced fresh ginger root", recipe=recipe3)
 session.add(ingredient3)
 session.commit()
 
@@ -187,11 +192,13 @@ ingredient6 = Ingredient(name="4 carrots, cubed", recipe=recipe3)
 session.add(ingredient6)
 session.commit()
 
-ingredient7 = Ingredient(name="1 fresh jalapeno pepper, seeded and sliced", recipe=recipe3)
+ingredient7 = Ingredient(
+    name="1 fresh jalapeno pepper, seeded and sliced", recipe=recipe3)
 session.add(ingredient7)
 session.commit()
 
-ingredient8 = Ingredient(name="3 tablespoons ground unsalted cashews", recipe=recipe3)
+ingredient8 = Ingredient(
+    name="3 tablespoons ground unsalted cashews", recipe=recipe3)
 session.add(ingredient8)
 session.commit()
 
@@ -208,11 +215,14 @@ recipe4 = Recipe(name="Spinach Quiche", category=category2, user=user2)
 session.add(recipe4)
 session.commit()
 
-ingredient1 = Ingredient(name="1 (10ounce) package frozen chopped spinach, thawed", recipe=recipe4)
+ingredient1 = Ingredient(
+    name="1 (10ounce) package frozen chopped spinach, thawed", recipe=recipe4)
 session.add(ingredient1)
 session.commit()
 
-ingredient2 = Ingredient(name="1 bunch green onions, finely chopped (white parts only)", recipe=recipe4)
+ingredient2 = Ingredient(
+    name="1 bunch green onions, "
+    "finely chopped (white parts only)", recipe=recipe4)
 session.add(ingredient2)
 session.commit()
 
@@ -220,7 +230,8 @@ ingredient3 = Ingredient(name="4 eggs, beaten", recipe=recipe4)
 session.add(ingredient3)
 session.commit()
 
-ingredient4 = Ingredient(name="1 (16 ounce) package cottage cheese", recipe=recipe4)
+ingredient4 = Ingredient(
+    name="1 (16 ounce) package cottage cheese", recipe=recipe4)
 session.add(ingredient4)
 session.commit()
 
@@ -238,7 +249,8 @@ category3 = Category(name="Dessert", user=user1)
 session.add(category3)
 session.commit()
 
-recipe5 = Recipe(name="Chef John's Pumpkin Pie", category=category3, user=user1)
+recipe5 = Recipe(
+    name="Chef John's Pumpkin Pie", category=category3, user=user1)
 session.add(recipe5)
 session.commit()
 
@@ -254,7 +266,8 @@ ingredient3 = Ingredient(name="1 large egg", recipe=recipe5)
 session.add(ingredient3)
 session.commit()
 
-ingredient4 = Ingredient(name="1 (14ounce) can sweetened condensed milk", recipe=recipe5)
+ingredient4 = Ingredient(
+    name="1 (14ounce) can sweetened condensed milk", recipe=recipe5)
 session.add(ingredient4)
 session.commit()
 
@@ -270,11 +283,13 @@ ingredient7 = Ingredient(name="1/2 teaspoon fine salt", recipe=recipe5)
 session.add(ingredient7)
 session.commit()
 
-ingredient8 = Ingredient(name="1/4 teaspoon freshly grated nutmeg", recipe=recipe5)
+ingredient8 = Ingredient(
+    name="1/4 teaspoon freshly grated nutmeg", recipe=recipe5)
 session.add(ingredient8)
 session.commit()
 
-ingredient9 = Ingredient(name="1/8 teaspoon Chines 5-spice poweder", recipe=recipe5)
+ingredient9 = Ingredient(
+    name="1/8 teaspoon Chines 5-spice poweder", recipe=recipe5)
 session.add(ingredient9)
 session.commit()
 
@@ -283,7 +298,8 @@ session.add(ingredient10)
 session.commit()
 
 
-recipe6 = Recipe(name="Maple Pecan Shortbread Squares", category=category3, user=user2)
+recipe6 = Recipe(
+    name="Maple Pecan Shortbread Squares", category=category3, user=user2)
 session.add(recipe6)
 session.commit()
 
